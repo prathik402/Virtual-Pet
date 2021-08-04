@@ -1,5 +1,5 @@
 class Food{
-    constructor(foodStock,lastfed){
+    constructor(foodStock,lastfed,image){
     var options = {
    isStatic: true,
    restitution: 0,
@@ -10,10 +10,7 @@ class Food{
    
 
    this.body = Bodies.rectangle(x,y,width,height,options);
-   this.x = x;
-   this.y = y;
-   this.width = width;
-   this.height = height;
+ 
    this.image = loadImage("images/Milk.png");
    World.add(world, this.body);
    }

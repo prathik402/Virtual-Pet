@@ -26,10 +26,24 @@ function setup() {
  feed=createButton("Feed the dog");
  feed.position(700,95);
  feed.mousePressed(feedDog);
+ if(gameState!="Hungry"){
+   feed.hide();
+   addFood.hide();
+   dog.remove();
+ }else{
+   feed.show();
+   addFood.show();
+   dog.addImage("images/sadDog.png");
+
+ }
 
  addFood = createButton("Add food");
  addFood.position(800,95);
  addFood.mousePressed(foodStock = foodStock + 1);
+ readState=database.ref("gameState");
+ readState.on("value",function(data){
+ gameState=data.val();
+ });
 }
 
 function draw() {  
@@ -46,7 +60,20 @@ if(lastFed>=12){
 }
 
 
-
+currentTime=hour();
+if(currentTime===(lastFed+1)){
+  update("Playing");
+  foodObj.garden();
+}else if(currentTime===(lastFed+2)){
+  update("Sleeping")
+  foodObj.bedroom()
+}else if(currentTime>(lastFed+2)&& currentTime<=(lastFed+4)){
+  update("Bathing");
+  foodObj.washroom();
+}else{
+  update("Hungry");
+  foodObj.display();
+}
 
 
 if(keyWentDown(UP_ARROW)){
@@ -83,6 +110,11 @@ function feedDog(){
   Food:foodObj.getFoodStock(),
   FeedTime:hour()
   })
+}
+function update(state){
+  database.ref("/").update({
+    gameState:state
+  });
 }
 
 

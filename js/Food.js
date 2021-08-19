@@ -46,5 +46,13 @@ this.lastFed = lastFed;
 
 
    }
-  
+   bedroom(){
+    background("images/Bed Room.png",550,500);
+  }
+  garden(){
+    background("images/Garden.png",550,500);
+  }
+  washroom(){
+    background("images/Wash Room.png",550,500);
+  }
    }
